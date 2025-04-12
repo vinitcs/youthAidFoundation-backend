@@ -13,12 +13,10 @@ const userSchema = new Schema(
 
     age: {
       type: Number,
-      default: 0,
     },
 
     dob: {
       type: Date,
-      default: null,
     },
 
     phone: {
@@ -34,33 +32,11 @@ const userSchema = new Schema(
     },
 
     address: {
-      type: String, // added new field
-      trim: true,
-    },
-
-    city: {
-      type: String,
-      trim: true,
-    },
-
-    pinCode: {
-      type: String,
-      trim: true,
-    },
-
-    district: {
-      type: String, // added new field
-      trim: true,
-    },
-
-    state: {
-      type: String,
-      trim: true,
-    },
-
-    country: {
-      type: String, // added new field
-      trim: true,
+      city: { type: String, trim: true },
+      pinCode: { type: String, trim: true },
+      district: { type: String, trim: true },
+      state: { type: String, trim: true },
+      country: { type: String, trim: true },
     },
 
     gender: {
@@ -78,7 +54,7 @@ const userSchema = new Schema(
       trim: true,
     },
 
-    heightEducation: {
+    highestEducation: {
       type: String,
       trim: true,
     },

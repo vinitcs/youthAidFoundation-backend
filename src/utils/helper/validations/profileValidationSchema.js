@@ -25,29 +25,27 @@ const userProfileDataValidationSchema = Joi.object({
     "any.required": "Email is required.",
   }),
 
-  address: Joi.string().required().messages({
-    "any.required": "Address is required.",
-  }),
-
-  city: Joi.string().required().messages({
-    "any.required": "City is required.",
-  }),
-
-  pinCode: Joi.string().required().messages({
-    "any.required": "Pin code is required.",
-  }),
-
-  district: Joi.string().required().messages({
-    "any.required": "District is required.",
-  }),
-
-  state: Joi.string().required().messages({
-    "any.required": "State is required.",
-  }),
-
-  country: Joi.string().required().messages({
-    "any.required": "Country is required.",
-  }),
+  address: Joi.object({
+    city: Joi.string().min(2).max(40).allow("").optional().messages({
+      "string.base": "City must be a string.",
+    }),
+    district: Joi.string().min(2).max(40).allow("").optional().messages({
+      "string.base": "District must be a string.",
+    }),
+    state: Joi.string().min(2).max(40).allow("").optional().messages({
+      "string.base": "State must be a string.",
+    }),
+    pinCode: Joi.string().min(2).max(40).allow("").optional().messages({
+      "string.base": "pinCode must be a string.",
+    }),
+    country: Joi.string().min(2).max(40).allow("").optional().messages({
+      "string.base": "Country must be a string.",
+    }),
+  })
+    .required()
+    .messages({
+      "any.required": "Address is required.",
+    }),
 
   gender: Joi.string().required().messages({
     "any.required": "Gender is required.",
@@ -61,12 +59,12 @@ const userProfileDataValidationSchema = Joi.object({
     // "any.required": "caste is required.",
   }),
 
-  heightEducation: Joi.string().optional().messages({
-    // "any.required": "caste is required.",
+  highestEducation: Joi.string().required().messages({
+    "any.required": "Highest education is required.",
   }),
 
-  primaryOccupation: Joi.string().optional().messages({
-    // "any.required": "caste is required.",
+  primaryOccupation: Joi.string().required().messages({
+    "any.required": "Primary Occupation is required.",
   }),
 
   monthlyIncome: Joi.number().required().messages({

@@ -12,6 +12,11 @@ const mentorshipApplicationSchema = new Schema(
       ref: "Mentorship",
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["Pending", "Accepted", "Rejected"],
+      default: "Pending",
+    },
   },
   { timestamps: true }
 );

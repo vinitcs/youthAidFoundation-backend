@@ -2,10 +2,9 @@ import { model, SchemaTypes, Types } from "mongoose";
 
 const mentorshipSchema = new SchemaTypes(
   {
-    userId: {
+    adminId: {
       type: Types.ObjectId,
-      ref: "User",
-      required: true,
+      ref: "Admin",
     },
     businessExpertise: {
       type: String,
@@ -15,7 +14,7 @@ const mentorshipSchema = new SchemaTypes(
     },
     mode: {
       type: String,
-      enum: ["Online", "Offline"],
+      enum: ["online", "offline"],
     },
     location: {
       type: String,
@@ -29,11 +28,11 @@ const mentorshipSchema = new SchemaTypes(
     time: {
       type: String,
     },
-    status: {
-      type: String,
-      enum: ["Pending", "Accepted", "Rejected"],
-      default: "Pending",
-    },
+    // status: {
+    //   type: String,
+    //   enum: ["Pending", "Accepted", "Rejected"],
+    //   default: "Pending",
+    // },
   },
   {
     timestamps: true,
