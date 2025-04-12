@@ -10,7 +10,7 @@ const updateProfile = asyncHandler(async (req, res) => {
 
     const validatedData = await userProfileDataValidationSchema.validateAsync(
       req.body
-    ); // Collect all validation errors if any);
+    );
 
     console.log("validated ", validatedData);
     const userId = req.user._id; // Access user _id from JWT
@@ -43,20 +43,25 @@ const updateProfile = asyncHandler(async (req, res) => {
     // Prepare final updatedData while checking for empty values
     const updatedData = {
       name: validatedData.name || user.name,
-      email: validatedData.email || user.email,
-      dob: validatedData.dob || user.dob,
       age: validatedData.age || user.age,
-      gender: validatedData.gender || user.gender,
-      cast: validatedData.cast || user.cast,
-      religion: validatedData.religion || user.religion,
-      bloodGroup: validatedData.bloodGroup || user.bloodGroup,
-
+      dob: validatedData.dob || user.dob,
       phone: validatedData.phone ? `+91${validatedData.phone}` : user.phone,
-
+      email: validatedData.email || user.email,
+      address:validatedData.address || user.address,
       city: validatedData.city || user.city,
+      pinCode: validatedData.pinCode || user.pinCode,
+      district: validatedData.district || user.district,
       state: validatedData.state || user.state,
-      education: validatedData.education || user.education,
-      college: validatedData.college || user.college,
+      country: validatedData.country || user.country,
+      gender: validatedData.gender || user.gender,
+      caste: validatedData.caste || user.caste,
+      category: validatedData.category || user.category,
+      heightEducation: validatedData.heightEducation || user.heightEducation,
+      primaryOccupation: validatedData.primaryOccupation || user.primaryOccupation,
+      monthlyIncome: validatedData.monthlyIncome || user.monthlyIncome,
+      pan: validatedData.pan || user.pan,
+      adhaar: validatedData.adhaar || user.adhaar,
+      registrationReason: validatedData.registrationReason || user.registrationReason,
     };
 
     // Remove undefined or empty values (ensuring no accidental overrides)

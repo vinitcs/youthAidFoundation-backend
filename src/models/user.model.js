@@ -13,23 +13,22 @@ const userSchema = new Schema(
 
     age: {
       type: Number,
-      requied: true,
+      default: 0,
     },
 
     dob: {
       type: Date,
-      required: true,
+      default: null,
     },
 
     phone: {
       type: String,
-      required: true,
+      trim: true,
     },
 
     email: {
       type: String,
       unique: true,
-      required: true,
       lowercase: true,
       trim: true,
     },
@@ -41,7 +40,12 @@ const userSchema = new Schema(
 
     city: {
       type: String,
-      required: true,
+      trim: true,
+    },
+
+    pinCode: {
+      type: String,
+      trim: true,
     },
 
     district: {
@@ -51,12 +55,42 @@ const userSchema = new Schema(
 
     state: {
       type: String,
-      required: true,
+      trim: true,
     },
 
     country: {
       type: String, // added new field
       trim: true,
+    },
+
+    gender: {
+      type: String,
+      trim: true,
+    },
+
+    caste: {
+      type: String,
+      trim: true,
+    },
+
+    category: {
+      type: String,
+      trim: true,
+    },
+
+    heightEducation: {
+      type: String,
+      trim: true,
+    },
+
+    primaryOccupation: {
+      type: String,
+      trim: true,
+    },
+
+    monthlyIncome: {
+      type: Number,
+      default: 0,
     },
 
     pan: {
@@ -70,16 +104,12 @@ const userSchema = new Schema(
     },
 
     registrationReason: {
-      type: [String], // e.g., ["Become a member", "Start business"] // added new field
-      enum: [
-        "Become a member",
-        "Attend training",
-        "Start business",
-        "Join as volunteer",
-        "Join as Mentor",
-        "Start similar initiative",
-      ],
-      default: [],
+      becomeYefiMember: { type: Boolean, default: false },
+      attendTraining: { type: Boolean, default: false },
+      startBusiness: { type: Boolean, default: false },
+      joinVolunteer: { type: Boolean, default: false },
+      joinMentor: { type: Boolean, default: false },
+      startInitiative: { type: Boolean, default: false },
     },
 
     avatar: {
@@ -157,7 +187,7 @@ export const User = model("User", userSchema);
 //   required: true,
 // },
 
-// cast: {
+// caste: {
 //   type: String,
 //   required: true,
 // },

@@ -65,7 +65,7 @@ const allNotification = asyncHandler(async (req, res) => {
   const skip = (pageNum - 1) * limitNum;
 
   let notifications = await Notification.find({ sharedToUserId: userId })
-    .select("-isBroadcast -sharedToUserId -contentId -contentType -isDeleted")
+    .select("-isBroadcaste -sharedToUserId -contentId -contentType -isDeleted")
     .sort({ createdAt: -1 }) // Latest first
     .skip(skip)
     .limit(limitNum)

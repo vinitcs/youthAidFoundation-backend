@@ -8,53 +8,86 @@ const userProfileDataValidationSchema = Joi.object({
     // "string.empty": "Name is required.",
   }),
 
-  email: Joi.string().email().allow(null, "").optional().messages({
+  age: Joi.number().required().messages({
+    "any.required": "Age is required.",
+  }),
+
+  dob: Joi.string().required().messages({
+    "any.required": "DOB is required.",
+  }),
+
+  phone: Joi.string().required().messages({
+    "any.required": "Phone is required.",
+  }),
+
+  email: Joi.string().email().required().messages({
     "string.email": "Please enter a valid email address.",
-    // "string.empty": "Email is required.",
+    "any.required": "Email is required.",
   }),
 
-  dob: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "DOB is required.",
+  address: Joi.string().required().messages({
+    "any.required": "Address is required.",
   }),
 
-  age: Joi.number().allow(null, "").optional().messages({
-    // "any.required": "Age is required.",
+  city: Joi.string().required().messages({
+    "any.required": "City is required.",
   }),
 
-  gender: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "Gender is required.",
+  pinCode: Joi.string().required().messages({
+    "any.required": "Pin code is required.",
   }),
 
-  cast: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "Cast is required.",
+  district: Joi.string().required().messages({
+    "any.required": "District is required.",
   }),
 
-  religion: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "Religion is required.",
+  state: Joi.string().required().messages({
+    "any.required": "State is required.",
   }),
 
-  bloodGroup: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "Blood Group is required.",
+  country: Joi.string().required().messages({
+    "any.required": "Country is required.",
   }),
 
-  phone: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "Phone is required.",
+  gender: Joi.string().required().messages({
+    "any.required": "Gender is required.",
   }),
 
-  city: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "City is required.",
+  caste: Joi.string().required().messages({
+    "any.required": "caste is required.",
   }),
 
-  state: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "State is required.",
+  category: Joi.string().optional().messages({
+    // "any.required": "caste is required.",
   }),
 
-  education: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "Education is required.",
+  heightEducation: Joi.string().optional().messages({
+    // "any.required": "caste is required.",
   }),
 
-  college: Joi.string().allow(null, "").optional().messages({
-    // "any.required": "College is required.",
+  primaryOccupation: Joi.string().optional().messages({
+    // "any.required": "caste is required.",
+  }),
+
+  monthlyIncome: Joi.number().required().messages({
+    "any.required": "Monthly income is required.",
+  }),
+
+  pan: Joi.string().required().messages({
+    "any.required": "Pan is required.",
+  }),
+
+  adhaar: Joi.string().required().messages({
+    "any.required": "Adhaar is required.",
+  }),
+
+  registrationReasonSchema: Joi.object({
+    becomeYefiMember: Joi.boolean().default(false),
+    attendTraining: Joi.boolean().default(false),
+    startBusiness: Joi.boolean().default(false),
+    joinVolunteer: Joi.boolean().default(false),
+    joinMentor: Joi.boolean().default(false),
+    startInitiative: Joi.boolean().default(false),
   }),
 });
 

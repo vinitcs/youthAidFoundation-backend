@@ -52,6 +52,10 @@ const signUpUserValidationSchema = Joi.object({
     "any.required": "City is required.",
   }),
 
+  pinCode: Joi.string().required().messages({
+    "any.required": "Pin code is required.",
+  }),
+
   district: Joi.string().required().messages({
     "any.required": "District is required.",
   }),
@@ -64,12 +68,45 @@ const signUpUserValidationSchema = Joi.object({
     "any.required": "Country is required.",
   }),
 
+  gender: Joi.string().required().messages({
+    "any.required": "Gender is required.",
+  }),
+
+  caste: Joi.string().required().messages({
+    "any.required": "caste is required.",
+  }),
+
+  category: Joi.string().optional().messages({
+    // "any.required": "caste is required.",
+  }),
+
+  heightEducation: Joi.string().optional().messages({
+    // "any.required": "caste is required.",
+  }),
+
+  primaryOccupation: Joi.string().optional().messages({
+    // "any.required": "caste is required.",
+  }),
+
+  monthlyIncome: Joi.number().required().messages({
+    "any.required": "Monthly income is required.",
+  }),
+
   pan: Joi.string().required().messages({
     "any.required": "Pan is required.",
   }),
 
   adhaar: Joi.string().required().messages({
     "any.required": "Adhaar is required.",
+  }),
+
+  registrationReasonSchema: Joi.object({
+    becomeYefiMember: Joi.boolean().default(false),
+    attendTraining: Joi.boolean().default(false),
+    startBusiness: Joi.boolean().default(false),
+    joinVolunteer: Joi.boolean().default(false),
+    joinMentor: Joi.boolean().default(false),
+    startInitiative: Joi.boolean().default(false),
   }),
 
   password: Joi.string().required(),
@@ -104,8 +141,8 @@ export {
 //   "any.required": "Gender is required.",
 // }),
 
-// cast: Joi.string().required().messages({
-//   "any.required": "Cast is required.",
+// caste: Joi.string().required().messages({
+//   "any.required": "caste is required.",
 // }),
 
 // religion: Joi.string().required().messages({

@@ -13,7 +13,7 @@ const notificationSchema = new Schema(
       default: "",
     },
 
-    isBroadcast: {
+    isBroadcaste: {
       type: Boolean,
       default: false,
     },
