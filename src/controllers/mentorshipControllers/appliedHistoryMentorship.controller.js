@@ -12,7 +12,13 @@ const appliedHistoryMentorship = asyncHandler(async (req, res) => {
   const skip = (pageNum - 1) * limitNum;
 
   const applications = await MentorshipApplication.find({ userId })
-    .populate("mentorshipId", "name email avatar")
+    .populate({
+      path: "mentorshipId",
+      populate: {
+        path: "adminId",
+        select: "name email avatar", // Add fields based on your Admin schema
+      },
+    })
     .sort({ createdAt: -1 }) // Sort by createdAt in descending order
     .skip(skip)
     .limit(limitNum)

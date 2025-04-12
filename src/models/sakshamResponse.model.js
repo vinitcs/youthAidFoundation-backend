@@ -4,16 +4,31 @@ const sakshamResponseSchema = new Schema(
   {
     trainingAttended: { type: Boolean, required: true },
 
+    trainingAttendedLocation: { type: String, default: "" },
+
     businessStarted: { type: Boolean, required: true },
+
     businessDetails: {
       startDate: { type: Date },
       isRegistered: { type: Boolean },
       registeredName: { type: String },
       registrationDate: { type: Date },
-      sector: { type: String },
-      productsOrServices: [{ type: String }],
-      totalPeopleEmployed: { type: Number },
     },
+
+    sector: {
+      greenEntrepreneurship: { type: Boolean, default: false },
+      technologyAndInnovation: { type: Boolean, default: false },
+      agriTech: { type: Boolean, default: false },
+      microBusiness: { type: Boolean, default: false },
+      garmentsAndFashion: { type: Boolean, default: false },
+      foodAndTechnology: { type: Boolean, default: false },
+      hospitalityAndTourism: { type: Boolean, default: false },
+      socialImpactIdeas: { type: Boolean, default: false },
+    },
+
+    productsOrServices: [{ type: String }],
+
+    totalPeopleEmployed: { type: Number },
 
     financials: {
       totalInvestment: { type: Number }, // in assets/plant/machinery
@@ -24,6 +39,7 @@ const sakshamResponseSchema = new Schema(
           expenditure: { type: Number },
         },
       ],
+
       loanStatus: {
         hasLoan: { type: Boolean },
         loanDetails: {
@@ -33,7 +49,7 @@ const sakshamResponseSchema = new Schema(
           repaymentPeriod: { type: String },
           loanType: {
             type: String,
-            enum: ["Bank", "Private", "Government", "Others"],
+            enum: ["bank", "private", "government", "others"],
           },
         },
       },

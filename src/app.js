@@ -45,7 +45,7 @@ import galleryRouter from "./routes/galleryRoutes/gallery.routes.js";
 import notificationRouter from "./routes/notificationRoutes/notification.routes.js";
 import reportRouter from "./routes/reportRoutes/report.routes.js";
 import stageRouter from "./routes/stageRoutes/stage.routes.js";
-import mentorshipRouter from "./routes/stageRoutes/stage.routes.js";
+import mentorshipRouter from "./routes/mentorshipRoutes/mentorship.routes.js";
 
 app.use("/api/v1/verification", verificationRouter);
 app.use("/api/v1/user", userRouter);

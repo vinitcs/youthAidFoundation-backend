@@ -2,7 +2,7 @@ import { MentorshipApplication } from "../../models/mentorshipApplication.model.
 import { ApiResponse } from "../../utils/helper/ApiResponse.js";
 import { asyncHandler } from "../../utils/helper/AsyncHandler.js";
 
-const attendingListMentorship = asyncHandler(async (req, res) => {
+const requestingListMentorship = asyncHandler(async (req, res) => {
   const { mentorshipId } = req.params;
   const { page = 1, limit = 10 } = req.query;
 
@@ -13,7 +13,6 @@ const attendingListMentorship = asyncHandler(async (req, res) => {
 
   const applications = await MentorshipApplication.find({
     mentorshipId,
-    status: "Accepted",
   })
     .populate("userId", "name email avatar")
     .sort({ createdAt: -1 }) // Sort by createdAt in descending order
@@ -24,21 +23,21 @@ const attendingListMentorship = asyncHandler(async (req, res) => {
   if (!applications || !applications.length) {
     const message =
       pageNum === 1
-        ? `No attending users list for mentorship found.`
-        : "No more attending users list for mentorship data available.";
+        ? `No requesting users list for mentorship found.`
+        : "No more requesting users list for mentorship data available.";
 
     return res
       .status(200)
-      .json(new ApiResponse(200, { attendingUsers: [] }, message));
+      .json(new ApiResponse(200, { requestingUsers: [] }, message));
   }
 
   return res.json(
     new ApiResponse(
       200,
-      { attendingUsers: applications },
-      "Successfully fetched attending users list for mentorship."
+      { requestingUsers: applications },
+      "Successfully fetched requesting users list for mentorship."
     )
   );
 });
 
-export { attendingListMentorship };
+export { requestingListMentorship };
