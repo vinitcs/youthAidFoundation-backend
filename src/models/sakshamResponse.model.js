@@ -1,7 +1,13 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 const sakshamResponseSchema = new Schema(
   {
+    userId: {
+      type: Types.ObjectId,
+      ref: "User",
+      required: [true, "User Id is required"],
+    },
+
     trainingAttended: { type: Boolean, required: true },
 
     trainingAttendedLocation: { type: String, default: "" },

@@ -23,7 +23,9 @@ const verifyAdminJWT = asyncHandler(async (req, res, next) => {
       process.env.ADMIN_ACCESS_TOKEN_SECRET
     );
 
-    const admin = await Admin.findById(decodedToken?._id).select("-password -refreshToken -_id -createdAt -updatedAt -__v").lean();
+    const admin = await Admin.findById(decodedToken?._id)
+      .select("-password -refreshToken -createdAt -updatedAt -__v")
+      .lean();
 
     if (!admin) {
       return res.status(404).json(new ApiResponse(404, {}, "Admin not found."));

@@ -23,7 +23,7 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
       process.env.USER_ACCESS_TOKEN_SECRET
     );
 
-    const user = await User.findById(decodedToken?._id).select("-password -refreshToken -_id -createdAt -updatedAt -__v").lean();
+    const user = await User.findById(decodedToken?._id).select("-password -refreshToken").lean();
 
     if (!user) {
       return res.status(404).json(new ApiResponse(404, {}, "User not found."));
