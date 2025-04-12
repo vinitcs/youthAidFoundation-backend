@@ -3,20 +3,21 @@ import { ApiResponse } from "../../utils/helper/ApiResponse.js";
 import { asyncHandler } from "../../utils/helper/AsyncHandler.js";
 
 const getAllMentorShip = asyncHandler(async (req, res) => {
-  const { status, page = 1, limit = 10 } = req.query; // status optional: "Pending", "Accepted", "Rejected"
+  const adminId = req.admin._id;
+  const { page = 1, limit = 10 } = req.query;
 
   const pageNum = Number(page) || 1;
   const limitNum = Number(limit) || 10;
 
   const skip = (pageNum - 1) * limitNum;
 
-  let filter = {};
-  if (status) {
-    filter.status = status;
-  }
+  // let filter = {};
+  // if (status) {
+  //   filter.status = status;
+  // }
 
-  const allMentorships = await Mentorship.find(filter)
-    .populate("userId", "name email avatar")
+  const allMentorships = await Mentorship.find({ adminId: adminId })
+    .populate("adminId", "name email avatar")
     .skip(skip)
     .limit(limitNum)
     .lean();
@@ -24,8 +25,8 @@ const getAllMentorShip = asyncHandler(async (req, res) => {
   if (!allMentorships || !allMentorships.length) {
     const message =
       pageNum === 1
-        ? `No requested mentorship found.`
-        : "No more requested mentorship data available.";
+        ? `No mentorship found.`
+        : "No more mentorship data available.";
 
     return res
       .status(200)
@@ -38,7 +39,7 @@ const getAllMentorShip = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         { requestedMentorships: allMentorships },
-        "All requested mentorships fetch successfully."
+        "All mentorships fetch successfully."
       )
     );
 });

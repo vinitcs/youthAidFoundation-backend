@@ -8,11 +8,11 @@ const applyForMentorship = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
   const mentorship = await Mentorship.findById(mentorshipId);
-  if (!mentorship || mentorship.status !== "Accepted") {
+  if (!mentorship) {
     return res
       .status(400)
       .json(
-        new ApiResponse(400, {}, "Invalid or unavailable mentorship session")
+        new ApiResponse(400, {}, "No mentorship found.")
       );
   }
 
@@ -24,7 +24,7 @@ const applyForMentorship = asyncHandler(async (req, res) => {
   if (alreadyApplied) {
     return res
       .status(409)
-      .json(new ApiResponse(409, {}, "Already applied for this mentorship"));
+      .json(new ApiResponse(409, {}, "Already applied for this mentorship."));
   }
 
   const newApplication = await MentorshipApplication.create({

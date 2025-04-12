@@ -1,6 +1,6 @@
-import { model, SchemaTypes, Types } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
-const mentorshipSchema = new SchemaTypes(
+const mentorshipSchema = new Schema(
   {
     adminId: {
       type: Types.ObjectId,

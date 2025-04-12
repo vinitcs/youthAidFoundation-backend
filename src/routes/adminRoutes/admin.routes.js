@@ -22,12 +22,12 @@ import { updatePost } from "../../controllers/postControllers/updatePost.control
 import { deletePost } from "../../controllers/postControllers/deletePost.controller.js";
 import { postsCreatedByAdmin } from "../../controllers/postControllers/postsCreatedByAdmin.controller.js";
 
-import { createStage } from "../../controllers/stageControllers/createStage.controller.js";
-import { updateStage } from "../../controllers/stageControllers/updateStage.controller.js";
-import { allStage } from "../../controllers/stageControllers/allStage.controller.js";
-import { selectedStage } from "../../controllers/stageControllers/selectedStage.controller.js";
-import { getUserResponses } from "../../controllers/userStageProgressController.js/getUserResponse.controller.js";
-import { reviewUserStage } from "../../controllers/stageControllers/reviewUserStage.controller.js";
+// import { createStage } from "../../controllers/stageControllers/createStage.controller.js";
+// import { updateStage } from "../../controllers/stageControllers/updateStage.controller.js";
+// import { allStage } from "../../controllers/stageControllers/allStage.controller.js";
+// import { selectedStage } from "../../controllers/stageControllers/selectedStage.controller.js";
+// import { getUserResponses } from "../../controllers/userStageProgressController.js/getUserResponse.controller.js";
+// import { reviewUserStage } from "../../controllers/stageControllers/reviewUserStage.controller.js";
 
 import { addGallery } from "../../controllers/galleryControllers/addGallery.controller.js";
 import { gallerysCreatedByAdmin } from "../../controllers/galleryControllers/gallerysCreatedByAdmin.controller.js";
@@ -39,6 +39,11 @@ import { deleteGallery } from "../../controllers/galleryControllers/deleteGaller
 import userAchievementCertificateUpload from "../../utils/helper/multer/userAchievementCertificate.multer.js";
 import { addCertificateFromAdminSide } from "../../controllers/userAchievementControllers/addCertificateFromAdminSide.controller.js";
 import { deleteCertificateFromAdminSide } from "../../controllers/userAchievementControllers/deleteCertificateFromAdminSide.controller.js";
+
+import { createMentorShip } from "../../controllers/mentorshipControllers/createMentorship.controller.js";
+import { getAllMentorShip } from "../../controllers/mentorshipControllers/getAllMentorship.controller.js";
+import { attendingListMentorship } from "../../controllers/mentorshipControllers/attendingListMentorship.controller.js";
+import { acceptRequestMentorShip } from "../../controllers/mentorshipControllers/acceptRequestMentorShip.controller.js";
 
 const router = Router();
 
@@ -72,19 +77,33 @@ router.route("/report/:id").get(verifyAdminJWT, selectedReport);
 
 /////////////////////////////////////////////////////////
 
-// Stages CRUD
+// // Stages CRUD
 
-router.route("/stage/create").post(verifyAdminJWT, createStage);
+// router.route("/stage/create").post(verifyAdminJWT, createStage);
 
-router.route("/stage/update/:stageId").patch(verifyAdminJWT, updateStage);
+// router.route("/stage/update/:stageId").patch(verifyAdminJWT, updateStage);
 
-router.route("/stage/all").get(verifyAdminJWT, allStage);
+// router.route("/stage/all").get(verifyAdminJWT, allStage);
 
-router.route("/stage/get/:stageId").get(verifyAdminJWT, selectedStage);
+// router.route("/stage/get/:stageId").get(verifyAdminJWT, selectedStage);
 
-router.route("/stage/userresponse").get(verifyAdminJWT, getUserResponses);
+// router.route("/stage/userresponse").get(verifyAdminJWT, getUserResponses);
 
-router.route("/stage/approval").patch(verifyAdminJWT, reviewUserStage);
+// router.route("/stage/approval").patch(verifyAdminJWT, reviewUserStage);
+
+/////////////////////////////////////////////////////////
+
+// Mentorship CRUD
+
+router.route("/mentorship/create").post(verifyAdminJWT, createMentorShip);
+
+router.route("/mentorship/all").get(verifyAdminJWT, getAllMentorShip);
+
+router.route("/mentorship/attend/request/:mentorshipId").patch(verifyAdminJWT, acceptRequestMentorShip);
+
+router.route("/mentorship/attending/users/list/:mentorshipId").get(verifyAdminJWT, attendingListMentorship);
+
+
 
 /////////////////////////////////////////////////////////
 
