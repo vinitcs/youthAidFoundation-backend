@@ -6,12 +6,12 @@ const sankalpResponseSchema = new Schema(
 
     trainingAttendedLocation: { type: String, default: "" },
 
-//     businessStarted: { type: Boolean, required: true },
+    //     businessStarted: { type: Boolean, required: true },
 
     businessDetails: {
       startDate: { type: Date },
-     //  isRegistered: { type: Boolean },
-      registeredName: { type: String },
+      //  isRegistered: { type: Boolean },
+      registeredName: { type: String, default: "" },
       registrationDate: { type: Date },
     },
 
@@ -26,7 +26,7 @@ const sankalpResponseSchema = new Schema(
       socialImpactIdeas: { type: Boolean, default: false },
     },
 
-    productsOrServices: [{ type: String }],
+    productsOrServices: [{ type: String, default: "" }],
 
     totalPeopleEmployed: { type: Number },
 
@@ -34,32 +34,55 @@ const sankalpResponseSchema = new Schema(
       totalInvestment: { type: Number }, // in assets/plant/machinery
       incomeAndExpenditure: [
         {
-          month: { type: String }, // format: "YYYY-MM"
+          month: { type: String, default: "" }, // format: "YYYY-MM"
           income: { type: Number },
           expenditure: { type: Number },
         },
       ],
 
       loanStatus: {
-        hasLoan: { type: Boolean },
+        //    hasLoan: { type: Boolean },
         loanDetails: {
           dateOfLoan: { type: Date },
           loanAmount: { type: Number },
           instalmentAmount: { type: Number },
-          repaymentPeriod: { type: String },
+          repaymentPeriod: { type: String, default: "" },
           loanType: {
             type: String,
             enum: ["bank", "private", "government", "others"],
+            default: "",
           },
         },
       },
-      otherFinancialSupport: { type: String }, // e.g., Govt. Grant / Award
+      otherFinancialSupport: { type: String, default: "" }, // e.g., Govt. Grant / Award
       audited: { type: Boolean },
+      wantsAuditSupport: { type: Boolean },
     },
 
-    registeredWithYEFI: { type: Boolean },
     yeSummitAttended: { type: Boolean },
-    mentorName: { type: String },
+    mentorName: { type: String, default: "" },
+    receivedBusinessRecognition: { type: Boolean },
+    registeredWithYEFI: { type: Boolean },
+    membershipFeePaid: { type: Boolean },
+
+    media: [
+      {
+        url: { type: String, trim: true, default: "" },
+        type: {
+          type: String,
+          enum: ["image", "pdf"],
+          default: "",
+        },
+        link: { type: String, trim: true, default: "" },
+      },
+    ],
+
+    // Admin side acceptance or rejectance
+    status: {
+      type: String,
+      enum: ["Pending", "Accepted", "Rejected"],
+      default: "Pending",
+    },
   },
   {
     timestamps: true,

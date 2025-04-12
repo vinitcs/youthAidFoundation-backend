@@ -11,7 +11,7 @@ const sakshamResponseSchema = new Schema(
     businessDetails: {
       startDate: { type: Date },
       isRegistered: { type: Boolean },
-      registeredName: { type: String },
+      registeredName: { type: String, default: "" },
       registrationDate: { type: Date },
     },
 
@@ -26,7 +26,7 @@ const sakshamResponseSchema = new Schema(
       socialImpactIdeas: { type: Boolean, default: false },
     },
 
-    productsOrServices: [{ type: String }],
+    productsOrServices: [{ type: String, default: "" }],
 
     totalPeopleEmployed: { type: Number },
 
@@ -34,7 +34,7 @@ const sakshamResponseSchema = new Schema(
       totalInvestment: { type: Number }, // in assets/plant/machinery
       incomeAndExpenditure: [
         {
-          month: { type: String }, // format: "YYYY-MM"
+          month: { type: String, default: "" }, // format: "YYYY-MM"
           income: { type: Number },
           expenditure: { type: Number },
         },
@@ -46,20 +46,40 @@ const sakshamResponseSchema = new Schema(
           dateOfLoan: { type: Date },
           loanAmount: { type: Number },
           instalmentAmount: { type: Number },
-          repaymentPeriod: { type: String },
+          repaymentPeriod: { type: String, default: "" },
           loanType: {
             type: String,
             enum: ["bank", "private", "government", "others"],
+            default: "",
           },
         },
       },
-      otherFinancialSupport: { type: String }, // e.g., Govt. Grant / Award
+      otherFinancialSupport: { type: String, default: "" }, // e.g., Govt. Grant / Award
       audited: { type: Boolean },
     },
 
-    registeredWithYEFI: { type: Boolean },
+    // registeredWithYEFI: { type: Boolean },
     yeSummitAttended: { type: Boolean },
-    mentorName: { type: String },
+    mentorName: { type: String, default: "" },
+
+    media: [
+      {
+        url: { type: String, trim: true, default: "" },
+        type: {
+          type: String,
+          enum: ["image", "pdf"],
+          default: "",
+        },
+        link: { type: String, trim: true, default: "" },
+      },
+    ],
+
+    // Admin side acceptance or rejectance
+    status: {
+      type: String,
+      enum: ["Pending", "Accepted", "Rejected"],
+      default: "Pending",
+    },
   },
   {
     timestamps: true,
