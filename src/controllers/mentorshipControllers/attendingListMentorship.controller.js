@@ -23,8 +23,8 @@ const attendingListMentorship = asyncHandler(async (req, res) => {
   if (!applications || !applications.length) {
     const message =
       pageNum === 1
-        ? `No attending for mentorship found.`
-        : "No more attending for mentorship data available.";
+        ? `No attending users list for mentorship found.`
+        : "No more attending users list for mentorship data available.";
 
     return res
       .status(200)
@@ -35,7 +35,7 @@ const attendingListMentorship = asyncHandler(async (req, res) => {
     new ApiResponse(
       200,
       { attendingUsers: applications },
-      "Successfully fetched attending list for mentorship."
+      "Successfully fetched attending users list for mentorship."
     )
   );
 });

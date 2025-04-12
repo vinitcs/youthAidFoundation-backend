@@ -96,7 +96,7 @@ const signUpUserValidationSchema = Joi.object({
     "any.required": "Adhaar is required.",
   }),
 
-  registrationReasonSchema: Joi.object({
+  registrationReason: Joi.object({
     becomeYefiMember: Joi.boolean().default(false),
     attendTraining: Joi.boolean().default(false),
     startBusiness: Joi.boolean().default(false),
