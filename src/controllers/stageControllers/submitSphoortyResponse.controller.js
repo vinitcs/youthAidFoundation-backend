@@ -1,10 +1,10 @@
-import { SakshamResponse } from "../../models/sakshamResponse.model.js";
+import { SphoortyResponse } from "../../models/sphoortyResponse.model.js";
 import { ApiError } from "../../utils/helper/ApiError.js";
 import { ApiResponse } from "../../utils/helper/ApiResponse.js";
 import { asyncHandler } from "../../utils/helper/AsyncHandler.js";
 import fs from "fs/promises";
 
-// Helper to delete uploaded files
+// Delete uploaded files helper
 const deleteFileIfExists = async (filePath) => {
   try {
     await fs.access(filePath);
@@ -26,44 +26,46 @@ const deleteUploadedFiles = async (req) => {
 };
 
 // Main controller
-const submitSakshamResponse = asyncHandler(async (req, res) => {
+const submitSphoortyResponse = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
 
-    // Parse array fields if sent as JSON strings
-    if (req.body.productsOrServices) {
+    // Parse array field
+    if (req.body.businessProductsOrServices) {
       try {
-        req.body.productsOrServices = JSON.parse(req.body.productsOrServices);
-        if (!Array.isArray(req.body.productsOrServices)) {
-          req.body.productsOrServices = [];
+        req.body.businessProductsOrServices = JSON.parse(
+          req.body.businessProductsOrServices
+        );
+        if (!Array.isArray(req.body.businessProductsOrServices)) {
+          req.body.businessProductsOrServices = [];
         }
       } catch (err) {
         await deleteUploadedFiles(req);
         return res
           .status(400)
           .json(
-            new ApiResponse(400, {}, "Invalid format for productsOrServices.")
+            new ApiResponse(
+              400,
+              {},
+              "Invalid format for businessProductsOrServices."
+            )
           );
       }
     }
 
-    // Parse nested objects (if sent as JSON strings)
-    if (
-      req.body.businessDetails &&
-      typeof req.body.businessDetails === "string"
-    ) {
-      req.body.businessDetails = JSON.parse(req.body.businessDetails);
-    }
+    // Parse nested fields
+    const nestedFields = ["loanStatus", "sector"];
+    nestedFields.forEach((field) => {
+      if (req.body[field] && typeof req.body[field] === "string") {
+        try {
+          req.body[field] = JSON.parse(req.body[field]);
+        } catch (err) {
+          req.body[field] = {};
+        }
+      }
+    });
 
-    if (req.body.financials && typeof req.body.financials === "string") {
-      req.body.financials = JSON.parse(req.body.financials);
-    }
-
-    if (req.body.sector && typeof req.body.sector === "string") {
-      req.body.sector = JSON.parse(req.body.sector);
-    }
-
-    // Process media files
+    // Media array
     const mediaArray = [];
     if (req.files) {
       req.files.forEach((file) => {
@@ -76,10 +78,10 @@ const submitSakshamResponse = asyncHandler(async (req, res) => {
       });
     }
 
-    // Create SakshamResponse
-    const newResponse = await SakshamResponse.create({
+    // Create document
+    const newResponse = await SphoortyResponse.create({
       ...req.body,
-      userId: userId,
+      userId,
       media: mediaArray,
     });
 
@@ -91,7 +93,7 @@ const submitSakshamResponse = asyncHandler(async (req, res) => {
     return res
       .status(201)
       .json(
-        new ApiResponse(201, {}, "Saksham response submitted successfully.")
+        new ApiResponse(201, {}, "Sphoorty response submitted successfully.")
       );
   } catch (err) {
     await deleteUploadedFiles(req);
@@ -99,4 +101,4 @@ const submitSakshamResponse = asyncHandler(async (req, res) => {
   }
 });
 
-export { submitSakshamResponse };
+export { submitSphoortyResponse };

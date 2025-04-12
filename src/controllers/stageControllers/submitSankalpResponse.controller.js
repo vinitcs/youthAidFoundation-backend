@@ -1,4 +1,4 @@
-import { SakshamResponse } from "../../models/sakshamResponse.model.js";
+import { SankalpResponse } from "../../models/sankalpResponse.model.js";
 import { ApiError } from "../../utils/helper/ApiError.js";
 import { ApiResponse } from "../../utils/helper/ApiResponse.js";
 import { asyncHandler } from "../../utils/helper/AsyncHandler.js";
@@ -26,7 +26,7 @@ const deleteUploadedFiles = async (req) => {
 };
 
 // Main controller
-const submitSakshamResponse = asyncHandler(async (req, res) => {
+const submitSankalpResponse = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
 
@@ -76,8 +76,8 @@ const submitSakshamResponse = asyncHandler(async (req, res) => {
       });
     }
 
-    // Create SakshamResponse
-    const newResponse = await SakshamResponse.create({
+    // Create SankalpResponse
+    const newResponse = await SankalpResponse.create({
       ...req.body,
       userId: userId,
       media: mediaArray,
@@ -91,7 +91,7 @@ const submitSakshamResponse = asyncHandler(async (req, res) => {
     return res
       .status(201)
       .json(
-        new ApiResponse(201, {}, "Saksham response submitted successfully.")
+        new ApiResponse(201, {}, "Sankalp response submitted successfully.")
       );
   } catch (err) {
     await deleteUploadedFiles(req);
@@ -99,4 +99,4 @@ const submitSakshamResponse = asyncHandler(async (req, res) => {
   }
 });
 
-export { submitSakshamResponse };
+export { submitSankalpResponse };
