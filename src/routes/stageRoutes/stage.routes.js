@@ -4,8 +4,11 @@ import documentUpload from "../../utils/helper/multer/document.multer.js";
 import { submitSakshamResponse } from "../../controllers/stageControllers/submitSakshamResponse.controller.js";
 import { submitSankalpResponse } from "../../controllers/stageControllers/submitSankalpResponse.controller.js";
 import { submitSphoortyResponse } from "../../controllers/stageControllers/submitSphoortyResponse.controller.js";
+import { allStageUserSide } from "../../controllers/stageControllers/allStageUserSide.controller.js";
 
 const router = Router();
+
+router.route("/all").get(verifyJWT, allStageUserSide);
 
 router
   .route("/saksham/response/submit")

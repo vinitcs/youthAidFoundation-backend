@@ -39,6 +39,10 @@ import { addCertificateFromAdminSide } from "../../controllers/userAchievementCo
 import { deleteCertificateFromAdminSide } from "../../controllers/userAchievementControllers/deleteCertificateFromAdminSide.controller.js";
 import { requestingListMentorship } from "../../controllers/mentorshipControllers/requestingListMentorship.controller.js";
 
+import { reviewUserStage } from "../../controllers/stageControllers/reviewUserStage.controller.js";
+
+import { getUserResponses } from "../../controllers/userStageProgressControllers/getUserResponse.controller.js";
+
 const router = Router();
 
 router.route("/signup").post(adminSignUp);
@@ -68,6 +72,14 @@ router.route("/userdata").get(verifyAdminJWT, selectedUserDataAdminSide);
 router.route("/report/all").get(verifyAdminJWT, allReport);
 
 router.route("/report/:id").get(verifyAdminJWT, selectedReport);
+
+/////////////////////////////////////////////////////////
+
+// Stages
+
+router.route("/stage/userresponse").get(verifyAdminJWT, getUserResponses);
+
+router.route("/stage/approval").patch(verifyAdminJWT, reviewUserStage);
 
 /////////////////////////////////////////////////////////
 

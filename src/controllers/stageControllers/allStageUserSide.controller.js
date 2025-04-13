@@ -1,54 +1,58 @@
-import { Stage } from "../../models/stage.model.js";
-import { UserStageProgress } from "../../models/userStageProgress.model.js";
+import { SakshamResponse } from "../../models/sakshamResponse.model.js";
+import { SankalpResponse } from "../../models/sankalpResponse.model.js";
+import { SphoortyResponse } from "../../models/sphoortyResponse.model.js";
 import { ApiResponse } from "../../utils/helper/ApiResponse.js";
 import { asyncHandler } from "../../utils/helper/AsyncHandler.js";
 
 const allStageUserSide = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
-  // Fetch all stages sorted by order of creation
-  const stages = await Stage.find().sort({ createdAt: 1 });
+  // Define stage order manually
+  const stageDefinitions = [
+    { name: "Saksham", model: SakshamResponse },
+    { name: "Sankalp", model: SankalpResponse },
+    { name: "Sphoorty", model: SphoortyResponse },
+  ];
 
-  // Fetch user's progress for all stages
-  const userProgress = await UserStageProgress.find({ userId });
+  let isPreviousStageApproved = true;
 
-  let isPreviousStageApproved = true; // First stage is always accessible
+  const stages = [];
 
-  // Map stages with submission and approval status
-  const stageList = stages.map((stage, index) => {
-    const progress = userProgress.find(
-      (p) => p.stageId.toString() === stage._id.toString()
-    );
+  for (const stage of stageDefinitions) {
+    // Get user's latest submission for this stage
+    const submissions = await stage.model
+      .find({ userId })
+      .sort({ createdAt: -1 })
+      .limit(1);
 
-    const isSubmitted = !!(progress && progress.status === "Rejected");;
-    const isApproved = progress?.status === "Accepted";
-    
-    // First stage is always accessible; others depend on previous stage approval
-    const isAccessible = index === 0 || isPreviousStageApproved;
+    const latest = submissions[0];
 
-    // Update flag for the next stage
+    const isSubmitted =
+      !!latest &&
+      (latest.status === "Pending" || latest.status === "Accepted");
+
+    const isApproved = latest?.status === "Accepted";
+
+    const isAccessible = isPreviousStageApproved;
+
+    // Update for next loop
     isPreviousStageApproved = isApproved;
 
-    return {
-      _id: stage._id,
-      title: stage.title,
-      description: stage.description,
-      requiredExperience: stage.requiredExperience,
+    stages.push({
+      title: stage.name,
       isSubmitted,
       isApproved,
-      isAccessible, 
-    };
-  });
+      isAccessible,
+    });
+  }
 
-  res
-    .status(200)
-    .json(
-      new ApiResponse(
-        200,
-        { stages: stageList },
-        "Stages list fetched successfully."
-      )
-    );
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      { stages },
+      "Stages list fetched successfully with user progress."
+    )
+  );
 });
 
 export { allStageUserSide };
