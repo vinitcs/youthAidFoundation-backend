@@ -31,21 +31,21 @@ const submitSankalpResponse = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     // Parse array fields if sent as JSON strings
-    if (req.body.productsOrServices) {
-      try {
-        req.body.productsOrServices = JSON.parse(req.body.productsOrServices);
-        if (!Array.isArray(req.body.productsOrServices)) {
-          req.body.productsOrServices = [];
-        }
-      } catch (err) {
-        await deleteUploadedFiles(req);
-        return res
-          .status(400)
-          .json(
-            new ApiResponse(400, {}, "Invalid format for productsOrServices.")
-          );
-      }
-    }
+    // if (req.body.productsOrServices) {
+    //   try {
+    //     req.body.productsOrServices = JSON.parse(req.body.productsOrServices);
+    //     if (!Array.isArray(req.body.productsOrServices)) {
+    //       req.body.productsOrServices = [];
+    //     }
+    //   } catch (err) {
+    //     await deleteUploadedFiles(req);
+    //     return res
+    //       .status(400)
+    //       .json(
+    //         new ApiResponse(400, {}, "Invalid format for productsOrServices.")
+    //       );
+    //   }
+    // }
 
     // Parse nested objects (if sent as JSON strings)
     if (

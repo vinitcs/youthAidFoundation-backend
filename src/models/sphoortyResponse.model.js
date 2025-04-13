@@ -14,7 +14,7 @@ const sphoortyResponseSchema = new Schema(
 
     businessStructure: {
       type: String,
-      enum: ["Sole Proprietorship", "Partnership", "LLP"],
+      // enum: ["Sole Proprietorship", "Partnership", "LLP"],
       default: "",
     },
 
@@ -44,7 +44,7 @@ const sphoortyResponseSchema = new Schema(
       loanDetails: {
         loanType: {
           type: String,
-          enum: ["bank", "private", "government", "others"],
+          // enum: ["bank", "private", "government", "others"],
           default: "",
         },
         dateOfLoan: { type: Date },
@@ -52,7 +52,7 @@ const sphoortyResponseSchema = new Schema(
         instalmentAmount: { type: Number },
         instalmentFrequency: {
           type: String,
-          enum: ["monthly", "quarterly", "annually"],
+          // enum: ["monthly", "quarterly", "annually"],
           default: "",
         },
         repaymentPeriod: { type: String, default: "" },

@@ -31,27 +31,27 @@ const submitSphoortyResponse = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     // Parse array field
-    if (req.body.businessProductsOrServices) {
-      try {
-        req.body.businessProductsOrServices = JSON.parse(
-          req.body.businessProductsOrServices
-        );
-        if (!Array.isArray(req.body.businessProductsOrServices)) {
-          req.body.businessProductsOrServices = [];
-        }
-      } catch (err) {
-        await deleteUploadedFiles(req);
-        return res
-          .status(400)
-          .json(
-            new ApiResponse(
-              400,
-              {},
-              "Invalid format for businessProductsOrServices."
-            )
-          );
-      }
-    }
+    // if (req.body.businessProductsOrServices) {
+    //   try {
+    //     req.body.businessProductsOrServices = JSON.parse(
+    //       req.body.businessProductsOrServices
+    //     );
+    //     if (!Array.isArray(req.body.businessProductsOrServices)) {
+    //       req.body.businessProductsOrServices = [];
+    //     }
+    //   } catch (err) {
+    //     await deleteUploadedFiles(req);
+    //     return res
+    //       .status(400)
+    //       .json(
+    //         new ApiResponse(
+    //           400,
+    //           {},
+    //           "Invalid format for businessProductsOrServices."
+    //         )
+    //       );
+    //   }
+    // }
 
     // Parse nested fields
     const nestedFields = ["loanStatus", "sector"];

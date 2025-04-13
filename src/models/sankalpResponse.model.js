@@ -55,7 +55,7 @@ const sankalpResponseSchema = new Schema(
           repaymentPeriod: { type: String, default: "" },
           loanType: {
             type: String,
-            enum: ["bank", "private", "government", "others"],
+            // enum: ["bank", "private", "government", "others"],
             default: "",
           },
         },
