@@ -42,6 +42,7 @@ import { requestingListMentorship } from "../../controllers/mentorshipController
 import { reviewUserStage } from "../../controllers/stageControllers/reviewUserStage.controller.js";
 
 import { getUserResponses } from "../../controllers/userStageProgressControllers/getUserResponse.controller.js";
+import { getStageResponseDetails } from "../../controllers/userStageProgressControllers/getStageResponseDetails.controller.js";
 
 const router = Router();
 
@@ -78,6 +79,8 @@ router.route("/report/:id").get(verifyAdminJWT, selectedReport);
 // Stages
 
 router.route("/stage/userresponse").get(verifyAdminJWT, getUserResponses);
+
+router.get("/stage/response/:stageName/:id", getStageResponseDetails);
 
 router.route("/stage/approval").patch(verifyAdminJWT, reviewUserStage);
 
